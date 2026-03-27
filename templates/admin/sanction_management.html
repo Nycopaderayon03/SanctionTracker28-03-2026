@@ -1,79 +1,10 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanction Management - Sanction Tracker</title>
-    <link rel="stylesheet" href="{% static 'css/admin-theme.css' %}">
-    
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <div class="sidebar-logo">
-                <img src="{% static 'images/logo1.png' %}" alt="School logo">
-            </div>
-            <h1>Admin Panel</h1>
-            <p>Sanction Tracker System</p>
-        </div>
-        
-        <div class="nav-section">
-            <h3>Main</h3>
-            <a href="{% url 'admin_dashboard' %}" class="nav-item">
-                <i class="material-icons">dashboard</i>
-                <span>Dashboard</span>
-            </a>
-        </div>
-        
-        <div class="nav-section">
-            <h3>Management</h3>
-            <a href="{% url 'student_management' %}" class="nav-item">
-                <i class="material-icons">people</i>
-                <span>Students</span>
-            </a>
-            <a href="{% url 'sanction_management' %}" class="nav-item active">
-                <i class="material-icons">gavel</i>
-                <span>Sanctions</span>
-            </a>
-            <a href="{% url 'servicehours_management' %}" class="nav-item">
-                <i class="material-icons">schedule</i>
-                <span>Service Hours</span>
-            </a>
-            <a href="{% url 'reports_management' %}" class="nav-item">
-                <i class="material-icons">assessment</i>
-                <span>Reports</span>
-            </a>
-            <a href="{% url 'concerns_management' %}" class="nav-item">
-                <i class="material-icons">warning</i>
-                <span>Concerns</span>
-            </a>
-        </div>
-        
-        <div class="nav-section" style="margin-top: auto;">
-            <a href="{% url 'logout' %}" class="nav-item">
-                <i class="material-icons">logout</i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </div>
+{% extends 'admin/base.html' %}
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <div class="page-title">
-                <h2>Sanction Tracker</h2>
-                <p>Sanction Management</p>
-            </div>
-            
-        </div>
+{% block title %}Sanction Management - Sanction Tracker{% endblock %}
+{% block nav_sanctions_active %}active{% endblock %}
+{% block page_subtitle %}Sanction Management{% endblock %}
 
+{% block content %}
         <!-- Messages -->
         {% if messages %}
         <div class="messages">
@@ -427,12 +358,6 @@
             </div>
         </section>
 
-        <!-- Footer -->
-        <div class="footer">
-            <p>© 2026 Sanction Tracker System. All rights reserved.</p>
-        </div>
-    </div>
-
     <div class="modal-overlay" id="edit-sanction-modal">
         <div class="modal-card card">
             <button type="button" class="close-modal" aria-label="Close edit modal">&times;</button>
@@ -469,8 +394,10 @@
             </div>
         </div>
     </div>
+{% endblock %}
 
-    <script>
+{% block extra_js %}
+<script>
         function showTab(tabId, button) {
             document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -597,7 +524,5 @@
             initLogoutHandler();
             initEditModal();
         });
-    </script>
-
-</body>
-</html>
+</script>
+{% endblock %}

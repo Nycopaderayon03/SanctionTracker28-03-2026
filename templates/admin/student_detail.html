@@ -1,60 +1,12 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanction — Student Overview</title>
-    <link rel="stylesheet" href="{% static 'css/admin-theme.css' %}">
-    
-</head>
-<body>
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <div class="sidebar-logo">
-                <img src="{% static 'images/logo1.png' %}" alt="School logo">
-            </div>
-            <h1>Admin Panel</h1>
-            <p>Sanction Tracker</p>
-        </div>
-        <div class="nav-section">
-            <h3>Main</h3>
-            <a href="{% url 'admin_dashboard' %}" class="nav-item">
-                <i class="material-icons">dashboard</i>
-                Dashboard
-            </a>
-        </div>
-        <div class="nav-section">
-            <h3>Management</h3>
-            <a href="{% url 'student_management' %}" class="nav-item active">
-                <i class="material-icons">people</i>
-                Students
-            </a>
-            <a href="{% url 'sanction_management' %}" class="nav-item">
-                <i class="material-icons">gavel</i>
-                Sanctions
-            </a>
-            <a href="{% url 'servicehours_management' %}" class="nav-item">
-                <i class="material-icons">schedule</i>
-                Service Hours
-            </a>
-            <a href="{% url 'reports_management' %}" class="nav-item">
-                <i class="material-icons">assessment</i>
-                Reports
-            </a>
-            <a href="{% url 'concerns_management' %}" class="nav-item">
-                <i class="material-icons">warning</i>
-                Concerns
-            </a>
-        </div>
-        <div class="nav-section" style="margin-top:auto;">
-            <a href="{% url 'logout' %}" class="nav-item">
-                <i class="material-icons">logout</i>
-                Logout
-            </a>
-        </div>
-    </div>
-    <div class="main-content">
+{% extends 'admin/base.html' %}
+
+{% block title %}Sanction — Student Overview{% endblock %}
+{% block sidebar_subtitle %}Sanction Tracker{% endblock %}
+{% block nav_students_active %}active{% endblock %}
+{% block top_bar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
         <div class="hero">
             <div>
                 <h1>Sanction</h1>
@@ -124,6 +76,4 @@
             <p class="empty-state">No sanctions have been logged for this student yet.</p>
             {% endif %}
         </section>
-    </div>
-</body>
-</html>
+{% endblock %}

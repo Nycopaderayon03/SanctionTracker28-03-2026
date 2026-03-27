@@ -1,76 +1,11 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Hours - Sanction Tracker</title>
-    <link rel="stylesheet" href="{% static 'css/admin-theme.css' %}">
-    
-</head>
-<body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <div class="sidebar-logo">
-                <img src="{% static 'images/logo1.png' %}" alt="School logo">
-            </div>
-            <h1>Admin Panel</h1>
-            <p>Management System</p>
-        </div>
-        
-        <div class="nav-section">
-            <h3>Main</h3>
-            <a href="{% url 'admin_dashboard' %}" class="nav-item">
-                <i class="material-icons">dashboard</i>
-                <span>Dashboard</span>
-            </a>
-        </div>
-        
-        <div class="nav-section">
-            <h3>Management</h3>
-            <a href="{% url 'student_management' %}" class="nav-item">
-                <i class="material-icons">people</i>
-                <span>Students</span>
-            </a>
-            <a href="{% url 'sanction_management' %}" class="nav-item">
-                <i class="material-icons">gavel</i>
-                <span>Sanctions</span>
-            </a>
-            <a href="{% url 'servicehours_management'    %}" class="nav-item active">
-                <i class="material-icons">schedule</i>
-                <span>Service Hours</span>
-            </a>
-            <a href="{% url 'reports_management' %}" class="nav-item">
-                <i class="material-icons">assessment</i>
-                <span>Reports</span>
-            </a>
-            <a href="{% url 'concerns_management' %}" class="nav-item">
-                <i class="material-icons">warning</i>
-                <span>Concerns</span>
-            </a>
-        </div>
-        
-        <div class="nav-section" style="margin-top: auto;">
-            <a href="{% url 'logout' %}" class="nav-item">
-                <i class="material-icons">logout</i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </div>
+{% extends 'admin/base.html' %}
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <div class="page-title">
-                <h2>Sanction Tracker</h2>
-                <p>Community Service Validation</p>
-            </div>
-            
-        </div>
+{% block title %}Service Hours - Sanction Tracker{% endblock %}
+{% block sidebar_subtitle %}Management System{% endblock %}
+{% block nav_service_hours_active %}active{% endblock %}
+{% block page_subtitle %}Community Service Validation{% endblock %}
 
-        <!-- Messages -->
+{% block content %}
         {% if messages %}
         <div class="messages">
             {% for message in messages %}
@@ -267,12 +202,6 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <p>© 2026 Sanction Tracker System. All rights reserved.</p>
-        </div>
-        </div>
-
         <div class="modal-overlay validate" id="validate-modal">
             <div class="validate-card">
                 <div class="validate-grid">
@@ -323,8 +252,10 @@
                 </div>
             </div>
         </div>
+{% endblock %}
 
-    <script>
+{% block extra_js %}
+<script>
         // Validate individual hours
         function validateHours(studentId, studentName, date, hours, description, imageUrl) {
             openValidateModal(studentId, studentName, date, hours, description, imageUrl);
@@ -591,6 +522,5 @@
                 this.style.transform = 'translateY(0)';
             });
         });
-    </script>
-</body>
-</html>
+</script>
+{% endblock %}

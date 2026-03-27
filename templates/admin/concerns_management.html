@@ -1,66 +1,13 @@
-{% load static %}
-ï»¿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Concerns - Sanction Tracker</title>
-    <link rel="stylesheet" href="{% static 'css/admin-theme.css' %}">
-    
-</head>
-<body>
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <div class="sidebar-logo">
-                <img src="{% static 'images/logo1.png' %}" alt="School logo">
-            </div>
-            <h1>Admin Panel</h1>
-            <p>Management System</p>
-        </div>
-        <div class="nav-section">
-            <h3>Main</h3>
-            <a href="{% url 'admin_dashboard' %}" class="nav-item">
-                <i class="material-icons">dashboard</i>
-                <span>Dashboard</span>
-            </a>
-        </div>
-        <div class="nav-section">
-            <h3>Management</h3>
-            <a href="{% url 'student_management' %}" class="nav-item">
-                <i class="material-icons">people</i>
-                <span>Students</span>
-            </a>
-            <a href="{% url 'sanction_management' %}" class="nav-item">
-                <i class="material-icons">gavel</i>
-                <span>Sanctions</span>
-            </a>
-            <a href="{% url 'servicehours_management' %}" class="nav-item">
-                <i class="material-icons">schedule</i>
-                <span>Service Hours</span>
-            </a>
-            <a href="{% url 'reports_management' %}" class="nav-item">
-                <i class="material-icons">assessment</i>
-                <span>Reports</span>
-            </a>
-            <a href="{% url 'concerns_management' %}" class="nav-item active">
-                <i class="material-icons">warning</i>
-                <span>Concerns</span>
-            </a>
-        </div>
-        <div class="nav-section" style="margin-top: auto;">
-            <a href="{% url 'logout' %}" class="nav-item">
-                <i class="material-icons">logout</i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </div>
-    <div class="main-content">
-        <div class="top-bar">
-            <div class="page-title">
-                <h2>Student Concerns</h2>
-                <p>Review and address concerns submitted by students.</p>
-            </div>
-        </div>
+{% extends 'admin/base.html' %}
+
+{% block title %}Concerns - Sanction Tracker{% endblock %}
+{% block sidebar_subtitle %}Management System{% endblock %}
+{% block nav_concerns_active %}active{% endblock %}
+{% block page_title %}Student Concerns{% endblock %}
+{% block page_subtitle %}Review and address concerns submitted by students.{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
         {% if messages %}
         <div class="messages">
             {% for message in messages %}
@@ -156,10 +103,10 @@
                 </div>
             </div>
         </div>
-    </div>
+{% endblock %}
 
-    
-    <script>
+{% block extra_js %}
+<script>
         (function () {
             const concernStatusUrlTemplate = "{% url 'concern_status' concern_id=0 %}";
             const modalOverlay = document.getElementById('concern-modal');
@@ -305,7 +252,5 @@
                 });
             }
         })();
-    </script>
-    
-</body>
-</html>
+</script>
+{% endblock %}

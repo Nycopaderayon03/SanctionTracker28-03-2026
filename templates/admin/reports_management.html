@@ -1,76 +1,11 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reports & Analytics - Sanction Tracker</title>
-    <link rel="stylesheet" href="{% static 'css/admin-theme.css' %}">
-    
-</head>
-<body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <div class="sidebar-logo">
-                <img src="{% static 'images/logo1.png' %}" alt="School logo">
-            </div>
-            <h1>Admin Panel</h1>
-            <p>Management System</p>
-        </div>
-        
-        <div class="nav-section">
-            <h3>Main</h3>
-            <a href="{% url 'admin_dashboard' %}" class="nav-item">
-                <i class="material-icons">dashboard</i>
-                <span>Dashboard</span>
-            </a>
-        </div>
-        
-        <div class="nav-section">
-            <h3>Management</h3>
-            <a href="{% url 'student_management' %}" class="nav-item">
-                <i class="material-icons">people</i>
-                <span>Students</span>
-            </a>
-            <a href="{% url 'sanction_management' %}" class="nav-item">
-                <i class="material-icons">gavel</i>
-                <span>Sanctions</span>
-            </a>
-            <a href="{% url 'servicehours_management' %}" class="nav-item">
-                <i class="material-icons">schedule</i>
-                <span>Service Hours</span>
-            </a>
-            <a href="{% url 'reports_management' %}" class="nav-item active">
-                <i class="material-icons">assessment</i>
-                <span>Reports</span>
-            </a>
-            <a href="{% url 'concerns_management' %}" class="nav-item">
-                <i class="material-icons">warning</i>
-                <span>Concerns</span>
-            </a>
-        </div>
-        
-        <div class="nav-section" style="margin-top: auto;">
-            <a href="{% url 'logout' %}" class="nav-item">
-                <i class="material-icons">logout</i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </div>
+{% extends 'admin/base.html' %}
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <div class="page-title">
-                <h2>Sanction Tracker</h2>
-                <p>Reports & Analytics</p>
-            </div>
-            
-        </div>
+{% block title %}Reports & Analytics - Sanction Tracker{% endblock %}
+{% block sidebar_subtitle %}Management System{% endblock %}
+{% block nav_reports_active %}active{% endblock %}
+{% block page_subtitle %}Reports & Analytics{% endblock %}
 
-        <!-- Messages -->
+{% block content %}
         {% if messages %}
         <div class="messages">
             {% for message in messages %}
@@ -239,17 +174,13 @@
                 </div>
             </div>
         </div>
-        <!-- Footer -->
-        <div class="footer">
-            <p>© 2026 Sanction Tracker System. All rights reserved.</p>
-        </div>
-    </div>
+{% endblock %}
 
+{% block extra_js %}
     {{ reports_data|json_script:"reports-data-json" }}
     {{ report_month_labels|json_script:"report-month-labels-json" }}
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
-    <script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+<script>
         const reportsData = JSON.parse(document.getElementById('reports-data-json').textContent || '{}');
         const months = JSON.parse(document.getElementById('report-month-labels-json').textContent || '[]');
         const departmentSelect = document.getElementById('reports-department');
@@ -693,7 +624,5 @@ Sanction Tracker Office`;
         document.addEventListener('DOMContentLoaded', function () {
             renderDepartmentMetrics();
         });
-    </script>
-
-</body>
-</html>
+</script>
+{% endblock %}

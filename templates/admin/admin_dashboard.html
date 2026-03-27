@@ -1,77 +1,10 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Sanction Tracker</title>
-    <link rel="stylesheet" href="{% static 'css/admin-theme.css' %}">
-</head>
-<body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <div class="sidebar-logo">
-                <img src="{% static 'images/logo1.png' %}" alt="School logo">
-            </div>
-            <h1>Admin Panel</h1>
-            <p>Sanction Tracker System</p>
-        </div>
-        
-        <div class="nav-section">
-            <h3>Main</h3>
-            <a href="#" class="nav-item active">
-                <i class="material-icons">dashboard</i>
-                <span>Dashboard</span>
-            </a>
-        </div>
-        
+{% extends 'admin/base.html' %}
 
-    <!-- Sidebar  Management-->
-        <div class="nav-section">
-            <h3>Management</h3>
-            <a href="{% url 'student_management' %}" class="nav-item">
-                <i class="material-icons">people</i>
-                <span>Students</span>
-            </a>
-            <a href="{% url 'sanction_management' %}" class="nav-item">
-                <i class="material-icons">gavel</i>
-                <span>Sanctions</span>
-            </a>
-            <a href="{% url 'servicehours_management' %}" class="nav-item">
-                <i class="material-icons">schedule</i>
-                <span>Service Hours</span>
-            </a>
-            <a href="{% url 'reports_management' %}" class="nav-item">
-                <i class="material-icons">assessment</i>
-                <span>Reports</span>
-            </a>
-            <a href="{% url 'concerns_management' %}" class="nav-item">
-                <i class="material-icons">warning</i>
-                <span>Concerns</span>
-            </a>
-        </div>
-        
-            <!-- This Correct Logout -->
-        <div class="nav-section" style="margin-top: auto;">
-            <a href="{% url 'logout' %}" class="nav-item">
-                <i class="material-icons">logout</i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </div>
+{% block title %}Admin Panel - Sanction Tracker{% endblock %}
+{% block nav_dashboard_active %}active{% endblock %}
+{% block page_subtitle %}Dashboard{% endblock %}
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <div class="page-title">
-                <h2>Sanction Tracker</h2>
-                <p>Dashboard</p>
-            </div>
-            
-        </div>
-
+{% block content %}
         <!-- Welcome Banner (only show welcome messages) -->
         {% if messages %}
             {% for message in messages %}
@@ -161,13 +94,10 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <p>© 2026 Sanction Tracker System. All rights reserved.</p>
-        </div>
-    </div>
+{% endblock %}
 
-    <script>
+{% block extra_js %}
+<script>
         // Add active class to clicked nav items
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function(e) {
@@ -202,6 +132,5 @@
             });
         });
 
-    </script>
-</body>
-</html>
+</script>
+{% endblock %}

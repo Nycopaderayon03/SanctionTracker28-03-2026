@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanction — Student Overview</title>
+    <link rel="stylesheet" href="{% static 'css/admin-theme.css' %}">
+    
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="{% static 'images/logo1.png' %}" alt="School logo">
+            </div>
+            <h1>Admin Panel</h1>
+            <p>Sanction Tracker</p>
+        </div>
+        <div class="nav-section">
+            <h3>Main</h3>
+            <a href="{% url 'admin_dashboard' %}" class="nav-item">
+                <i class="material-icons">dashboard</i>
+                Dashboard
+            </a>
+        </div>
+        <div class="nav-section">
+            <h3>Management</h3>
+            <a href="{% url 'student_management' %}" class="nav-item active">
+                <i class="material-icons">people</i>
+                Students
+            </a>
+            <a href="{% url 'sanction_management' %}" class="nav-item">
+                <i class="material-icons">gavel</i>
+                Sanctions
+            </a>
+            <a href="{% url 'servicehours_management' %}" class="nav-item">
+                <i class="material-icons">schedule</i>
+                Service Hours
+            </a>
+            <a href="{% url 'reports_management' %}" class="nav-item">
+                <i class="material-icons">assessment</i>
+                Reports
+            </a>
+            <a href="{% url 'concerns_management' %}" class="nav-item">
+                <i class="material-icons">warning</i>
+                Concerns
+            </a>
+        </div>
+        <div class="nav-section" style="margin-top:auto;">
+            <a href="{% url 'logout' %}" class="nav-item">
+                <i class="material-icons">logout</i>
+                Logout
+            </a>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="hero">
+            <div>
+                <h1>Sanction</h1>
+                <p>View student sanctions in detail.</p>
+            </div>
+            <a href="{% url 'student_management' %}" class="back-btn">
+                <i class="material-icons">arrow_back</i>
+                Back to Students
+            </a>
+        </div>
+
+        <section class="panel">
+            <div class="profile-header">
+                <div>
+                    <h2>{{ student.display_name }}</h2>
+                    <small>Student ID: {{ student.identifier }}</small>
+                </div>
+                <span class="pill {% if has_active %}active{% else %}cleared{% endif %}">
+                    {% if has_active %}
+                        With Sanction
+                    {% else %}
+                        Cleared
+                    {% endif %}
+                </span>
+            </div>
+            <div class="info-grid">
+                <div>
+                    <span class="label">Email:</span>
+                    {{ student.email }}
+                </div>
+                <div>
+                    <span class="label">Department:</span>
+                    {{ student.department|default:"Unassigned" }}
+                </div>
+                <div>
+                    <span class="label">Status:</span>
+                    {{ sanction_status }}
+                </div>
+            </div>
+        </section>
+
+        <section class="panel sanctions-card">
+            <div>
+                <h3>Sanctions</h3>
+                <p>All sanctions assigned to this student. Use the archive icon to signal a removal.</p>
+            </div>
+            {% if sanctions %}
+            <div class="sanctions-list">
+                {% for sanction in sanctions %}
+                <article class="sanction-item">
+                    <div class="details">
+                        <strong>{{ sanction.violation }}</strong>
+                        <span>Required Hours: {{ sanction.required_hours }}</span>
+                        <span>Completed: {{ sanction.completed_hours }}</span>
+                    </div>
+                    <div class="meta">
+                        <span>{{ sanction.date_issued }} — {{ sanction.due_date }}</span>
+                        <span class="pill {% if sanction.status == 'completed' %}cleared{% else %}active{% endif %}">
+                            {{ sanction.status_label }}
+                        </span>
+                        <i class="material-icons" style="color: var(--text-muted); cursor: pointer;">archive</i>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="empty-state">No sanctions have been logged for this student yet.</p>
+            {% endif %}
+        </section>
+    </div>
+</body>
+</html>

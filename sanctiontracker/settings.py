@@ -158,6 +158,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+# Move Django admin to a non-standard URL to reduce automated probing.
+ADMIN_URL = os.environ.get("DJANGO_ADMIN_PATH", "secure-admin-portal").strip().strip("/")
+ADMIN_URL = f"{ADMIN_URL}/"
+
 
 # =========================
 # Email (Gmail SMTP)

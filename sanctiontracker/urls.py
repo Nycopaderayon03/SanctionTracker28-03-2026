@@ -18,12 +18,17 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import Http404
 from authentication import views as auth_views
 from authentication.admin import custom_admin_site
 
+
+def hidden_admin_entrypoint(_request):
+    raise Http404("Not found")
+
+
 urlpatterns = [
     path('', auth_views.login_view, name='home'),
-    path('admin/', admin.site.urls),
     path('admin-panel/', custom_admin_site.urls),
     path('login/', auth_views.login_view, name='login'),
     path('dashboard/', auth_views.dashboard_view, name='dashboard'),
@@ -55,6 +60,10 @@ urlpatterns = [
     path('create-student/', auth_views.create_student_view, name='create_student'),
     path('create-admin/', auth_views.create_admin_view, name='create_admin'),
 ]
+
+if settings.ADMIN_URL != "admin/":
+    urlpatterns.append(path("admin/", hidden_admin_entrypoint))
+urlpatterns.append(path(settings.ADMIN_URL, admin.site.urls))
 
 
 # Serve static files in development
